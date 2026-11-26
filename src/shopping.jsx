@@ -1,10 +1,23 @@
 import { Link } from "react-router";
-
+import { useOutletContext } from "react-router";
 const Shopping = () => {
+  const [cartCount, setCartCount] = useOutletContext();
+
+
+  const increment = () => {
+    setCartCount(cartCount+1)
+  }
   return (
     <>
-      <p>This is the shopping page!</p>
-      <Link to="/">Click here to go back</Link>
+      <h1>Shopping Page</h1>
+      <div>
+        <div>
+        Item 1
+        <button onClick = {increment}>Add To Cart</button>
+        </div>
+      </div>
+
+      
     </>
   );
 };
