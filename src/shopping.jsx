@@ -4,30 +4,38 @@ import { useOutletContext } from "react-router";
 
 
 const Shopping = () => {
+  const [cartCount, setCartCount] = useOutletContext();
+
 
   return (
     <>
     <h1>Shopping Page</h1>
       < ProductCards
         title = {"Item 1"}
+        cartCount =  {cartCount}
+        setCartCount = {setCartCount}
       />
 
       < ProductCards
        title = {"Item 2"}
+       cartCount =  {cartCount}
+       setCartCount = {setCartCount}
       />
 
       < ProductCards
        title = {"Item 3"}
+       cartCount =  {cartCount}
+       setCartCount = {setCartCount}
       />
     </>
   );
 };
 
 
-const ProductCards = ({title})=> {
+const ProductCards = ({title, cartCount, setCartCount})=> {
 
-  const [itemCount, setItemCount] = useState(null) //handles decrement/increment items
-  const [cartCount, setCartCount] = useOutletContext();
+  const [itemCount, setItemCount] = useState(1) //handles decrement/increment items
+  
 
   const inputNumber = (e) => {
   if (e.target.value === "" || (e.target.value > 0 && e.target.value < 11)) {
@@ -49,11 +57,11 @@ const ProductCards = ({title})=> {
    
   }
 
-  const incrementCartCount = () => { //think about how add to cart can be handled with multiple carts
-    if(itemCount)
-    setCartCount(itemCount)
-  }
 
+  const incrementCartCount = () => { // handles adding to cart 
+    setCartCount(cartCount+itemCount)
+    
+  }
 
   return (
     <>
