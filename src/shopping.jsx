@@ -1,26 +1,67 @@
 import { Link } from "react-router";
+import {useState} from "react"
 import { useOutletContext } from "react-router";
+
+
 const Shopping = () => {
-  const [cartCount, setCartCount, itemCount, setItemCount] = useOutletContext();
+
+  return (
+    <>
+    <h1>Shopping Page</h1>
+      < ProductCards
+        title = {"Item 1"}
+      />
+
+      < ProductCards
+       title = {"Item 2"}
+      />
+
+      < ProductCards
+       title = {"Item 3"}
+      />
+    </>
+  );
+};
+
+
+const ProductCards = ({title})=> {
+
+  const [itemCount, setItemCount] = useState(null) //handles decrement/increment items
+  const [cartCount, setCartCount] = useOutletContext();
+
+  const inputNumber = (e) => {
+  if (e.target.value === "" || (e.target.value > 0 && e.target.value < 11)) {
+    setItemCount(e.target.value);
+  }
+};
 
   const incrementItem = () => {
-    setItemCount(itemCount+1)
+    if(itemCount<10) {
+      setItemCount(Number(itemCount)+1)
+    }
+    
   }
 
   const decrementItem = () => {
-    setItemCount(itemCount-1)
+    if (itemCount>1) {
+      setItemCount(Number(itemCount)-1)
+    }
+   
   }
 
-  const incrementCartCount = () => {
-    setCartCount(cartCount+1)
+  const incrementCartCount = () => { //think about how add to cart can be handled with multiple carts
+    if(itemCount)
+    setCartCount(itemCount)
   }
+
+
   return (
     <>
-      <h1>Shopping Page</h1>
+      
       <div>
         <div>
           <div>
-            Item 1 image
+            {title}
           </div>
           <div className = "itemQuantityParent" >
             <button className="decrement" onClick = {decrementItem}>
@@ -28,11 +69,14 @@ const Shopping = () => {
             </button>
             
             <input 
-              type="text" 
+              type="number" 
+              min="1"
+              max="10"
+              step="1"
               name="itemQuantity" 
               id="itemQuantity" 
               value = {itemCount}
-              onChange = {(e) => setItemCount(Number(e.target.value))}
+              onChange = {inputNumber}
             />
 
             <button className="increment" onClick = {incrementItem}>
@@ -44,10 +88,10 @@ const Shopping = () => {
         <button onClick = {incrementCartCount}>Add To Cart</button>
         </div>
       </div>
-
-      
+   
     </>
   );
-};
+
+}
 
 export default Shopping;
