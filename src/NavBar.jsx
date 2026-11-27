@@ -8,6 +8,7 @@ import './App.css'
 const NavBar = () => {
   
   const [cartCount, setCartCount] = useState(null); //handles cartCount
+  const [itemCount, setItemCount] = useState(null) //handles decrement/increment items
 
   return (
     
@@ -24,7 +25,7 @@ const NavBar = () => {
         </li>
       </ul>
       <hr />
-      <Outlet context={[cartCount, setCartCount]} />;
+      <Outlet context={[cartCount, setCartCount, itemCount, setItemCount]} />;
       
     </div>
   );
